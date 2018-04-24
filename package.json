@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --mode development ./src/index.jsx --output ./build/main.js --open",
+    "start": "NODE_ENV=development webpack-dev-server --hot --mode development ./src/index.jsx --output ./build/main.js --open",
     "build": "NODE_ENV=production webpack --mode production ./src/index.jsx --output ./build/main.js",
-    "test": "eslint ."
+    "test": "eslint . jest"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
@@ -27,8 +29,10 @@
     "eslint-plugin-react": "^7.7.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^22.4.3",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.8.3",
+    "react-hot-loader": "^4.1.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "webpack": "^4.6.0",
@@ -37,6 +41,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   }
