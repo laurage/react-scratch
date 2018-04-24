@@ -2,3 +2,8 @@ body {
   line-height: 2;
 }
 
+.colored {
+  color: blue; }
+  .colored:hover {
+    color: pink; }
+

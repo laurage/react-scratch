@@ -2,6 +2,16 @@ Creating a React app from scratch.
 
 https://www.valentinog.com/blog/webpack-4-tutorial/
 
+https://developers.google.com/web/fundamentals/performance/webpack/decrease-frontend-size
+
+https://webpack.js.org/concepts/#entry
+
+webpack 4 doesn't (for now at least) allow the access to the --mode production or --mode development later on
+so we still have to setup the NODE--ENV variables ourselves to be able to access this in loaders
+In webpack.config.js, define: const devMode = process.env.NODE_ENV !== 'production'
+
+https://github.com/webpack/webpack/issues/6496 
+
 To check if needed: devtools, babelpolyfill
 add sass-loader with node-sass
 why is react-hot-loader used in production? I guess not needed if dev-server
@@ -21,8 +31,8 @@ Read this: https://developers.google.com/web/tools/setup/setup-buildtools#dont_t
 Create a new directory for our app:
 
 ```
-mkdir react-app-from-scratch
-cd react-app-from-scratch
+mkdir react-scratch
+cd react-scratch
 ```
 
 # Create the package.json file
@@ -159,33 +169,23 @@ To install Babel for nodeJS, we need:
 - babel-preset-env: compiles ES2015+ down to ES5 by automatically determining the Babel plugins and polyfills needed based on my targeted browser or runtime environments.
 - babel-preset-react: transform jsx into JS
 
-
 - babel-plugin-transform-class-properties: install to use the new static object properties feature
 - babel-plugin-transform-object-rest-spread: isntall to use the rest spread
+- [babel-polyfill](#https://babeljs.io/docs/usage/polyfill/): polyfills Promises, Object.assign, etc
+
 - babel-plugin-lodash: cherry-picks Lodash modules
-- babel-polyfill: polyfills Promises, Object.assign, etc
-// ? needed we have react dev server- react-hot-loader: hot reloading
 
 This is only needed in dev environment:
 
 Core:
 ```
-npm i babel-core babel-loader babel-preset-env babel-preset-react --save-dev
-```
-
-Addition:
-```
-npm i babel-plugin-transform-class-properties babel-plugin-transform-object-rest-spread --save-dev
+npm i babel-core babel-loader babel-preset-env babel-preset-react babel-plugin-transform-class-properties babel-plugin-transform-object-rest-spread  --save-dev
+npm i -S babel-polyfill
 ```
 
 Other Addition (not added here):
 ```
 npm i babel-plugin-lodash --save-dev
-```
-
-This is also needed in prod:
-```
-npm i -S babel-polyfill
 ```
 
 Create a configuration file .babelrc
@@ -235,18 +235,17 @@ We will use:
 - webpack-cli
 - [html-webpack-plugin](#) — simplifies creation of HTML files to serve your webpack bundles.
 - html-loader
-- mini-css-extract-plugin
+- [style-loader](#https://github.com/webpack-contrib/style-loader) — adds CSS to the DOM by injecting a <style> tag.
 - [css-loader](#) — interprets @import and url() like import/require() and will resolve them.
 - [sass-loader with node-sass](#) — sass loader for webpack. Compiles Sass to CSS.
+- [mini-css-extract-plugin](#https://github.com/webpack-contrib/mini-css-extract-plugin) (replaces extract-text-webpack-plugin)
 - [DevServer](#https://webpack.js.org/guides/development/) — development server that provides live reloading.
 
 In addition(not used here:)
 - [copy-webpack-plugin](#https://www.npmjs.com/package/copy-webpack-plugin) — copies individual files or entire directories to the build directory.
 - [babel-loader](#https://github.com/babel/babel-loader) — allows transpiling JavaScript files using Babel and webpack.
 - [postcss-loader](#https://github.com/postcss/postcss-loader) — PostCSS loader for webpack.
-- [style-loader](#https://github.com/webpack-contrib/style-loader) — adds CSS to the DOM by injecting a <style> tag.
 - [file-loader](#) — instructs webpack to emit the required object as file and to return its public URL.
-- [extract-text-webpack-plugin](#) — replaces extract-text-webpack-plugin in v3
 - [clean-webpack-plugin](#) — a webpack plugin to remove your build folder(s) before building.
 - [webpack-bundle-analyzer](#) — webpack plugin and CLI utility that represents bundle content as convenient
 - [interactive zoomable treemap](#)
@@ -254,12 +253,12 @@ In addition(not used here:)
 
 Needed:
 ```
-npm i webpack webpack-cli html-webpack-plugin html-loader mini-css-extract-plugin css-loader sass-loader node-sass webpack-dev-server --save-dev
+npm i webpack webpack-cli html-webpack-plugin html-loader mini-css-extract-plugin style-loader css-loader sass-loader node-sass webpack-dev-server --save-dev
 ```
 
 Additional: (not addded here)
 ```
-npm i copy-webpack-plugin babel-loader postcss-loader style-loader sass-loader node-sass file-loader clean-webpack-plugin webpack-bundle-analyzer lodash-webpack-plugin --save-dev
+npm i copy-webpack-plugin babel-loader postcss-loader file-loader clean-webpack-plugin webpack-bundle-analyzer lodash-webpack-plugin --save-dev
 ```
 
 ## edit package.json
